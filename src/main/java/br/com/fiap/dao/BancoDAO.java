@@ -1,7 +1,11 @@
 package br.com.fiap.dao;
 
+import br.com.fiap.exception.EntityNotFoundException;
 import br.com.fiap.model.Banco;
+import com.sun.org.apache.xpath.internal.operations.Bool;
+import oracle.jdbc.proxy.annotation.Pre;
 
+import javax.swing.text.html.parser.Entity;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -13,49 +17,72 @@ import java.util.UUID;
 public class BancoDAO {
     private Connection conexao;
 
-    public void cadastrar(Banco banco) throws SQLException {
-        PreparedStatement stm = conexao.prepareStatement("");
-        //stm.setString();
-        //stm.setString();
+    public void insert(Banco banco) throws SQLException {
+        PreparedStatement stm = conexao.prepareStatement("INSERT INTO t_fin_banco (id, nome, status) VALUES (?, ?, ?)");
+        stm.setString(1, banco.getId());
+        stm.setString(2, banco.getNome());
+        stm.setLong(3, banco.getStatus() ? 'T' : 'F');
         stm.executeUpdate();
     }
 
-    public Banco pesquisar(UUID id) throws SQLException, EntidadeNaoEncontradaException {
-        PreparedStatement stm = conexao.prepareStatement("");
-        stm.setString();
+    public Banco search(UUID id) throws SQLException, EntityNotFoundException {
+        String sql = "SELECT id, nome, status WHERE id = ?";
+        PreparedStatement stm = conexao.prepareStatement(sql);
+        stm.setString(1, id);
         ResultSet result = stm.executeQuery();
 
         if(!result.next())
-            throw new EntidadeNaoEncontradaException("Produto não encontrado.");
+            throw new EntityNotFoundException("Produto não encontrado.");
 
-        Long id = result.getLong("id");
+        String id = result.getString("id");
         String nome = result.getString("nome");
-
+        Boolean status = result.getBoolean("status");
 
         return new Banco();
     }
 
     public List<Banco> getAll() throws SQLException {
-        PreparedStatement stm = conexao.prepareStatement("SELECT * FROM tb_fin_banco");
+        String sql = "SELECT id, nome, status FROM tb_fin_banco ORDER BY id";
+        //String sqlGetUser = "SELECT id_usuario FROM tb_fin_usuario_conta WHERE id_conta = ?";
+
+        PreparedStatement stm = conexao.prepareStatement(sql);
+        //PreparedStatement stmUserBank = conexao.prepareStatement(sqlGetUser);
         ResultSet result = stm.executeQuery();
         List<Banco> lista = new ArrayList<>();
 
         while(result.next()) {
-            Long id = result.getLong("id");
+            String id = result.getString("id");
             String nome = result.getString("nome");
 
+          //  stmUserBank.setString(1, id);
 
-            lista.add(new Banco(id, nome));
+            lista.add(new Banco(id, nome, user));
         }
 
         return lista;
     }
 
-    public void atualizar(Banco banco) {
+    public void update(Banco banco) throws SQLException {
+        String sql = "UPDATE tb_fin_banco SET nome = ?, status = ?";
 
+        PreparedStatement stm = conexao.prepareStatement(sql);
+        stm.setString(1, banco.getNome());
+        stm.setBoolean(2, banco.getStatus());
     }
 
-    public void remover(UUID id) {
+    public void delete(UUID id) throws SQLException, EntityNotFoundException{
+        String sql = "DELETE tb_fin_banco WHERE id = ?";
+        PreparedStatement stm = conexao.prepareStatement(sql);
+        stm.setString(1, id);
 
+        int linha = stm.executeUpdate();
+
+        if(linha == 0)
+            throw new EntityNotFoundException("Banco não encontrado para ser removido");
     }
+
+    public void closeConnection() throws SQLException {
+        conexao.close();
+    }
+
 }

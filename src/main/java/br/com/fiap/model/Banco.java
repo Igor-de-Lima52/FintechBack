@@ -9,7 +9,7 @@ public class Banco{
     private UUID id;
     private String nome;
     private Usuario usuario;
-    private boolean status = true;
+    private boolean status;
     private LocalDateTime dataCriacao;
     private LocalDateTime dataEdicao;
 
@@ -25,6 +25,7 @@ public class Banco{
         this.id = UUID.randomUUID();
         this.nome = nome;
         this.usuario = usuario;
+        this.status = true;
         this.dataCriacao = LocalDateTime.now();
         this.dataEdicao = LocalDateTime.now();
     }
