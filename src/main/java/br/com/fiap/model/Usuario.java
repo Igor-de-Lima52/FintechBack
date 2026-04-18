@@ -31,11 +31,11 @@ public class Usuario {
         this.dataEdicao = LocalDateTime.now();
     }
 
-    //public Usuario() {
-    //this.id = UUID.randomUUID();
-    //this.dataCriacao = LocalDateTime.now();
-    //this.dataEdicao = LocalDateTime.now();
-    //}
+    public Usuario() {
+        this.id = UUID.randomUUID();
+        this.dataCriacao = LocalDateTime.now();
+        this.dataEdicao = LocalDateTime.now();
+    }
 
     public UUID getId() {
         return this.id;
@@ -110,6 +110,11 @@ public class Usuario {
 
     public LocalDateTime getDataEdicao() {
         return this.dataEdicao;
+    }
+
+    public Usuario setDataEdicao(LocalDateTime dataEdicao) {
+        this.dataEdicao = dataEdicao;
+        return this;
     }
 
     public List<Conta> getContas() {

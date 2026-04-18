@@ -62,12 +62,27 @@ public class Banco{
         this.status = false;
     }
 
+    public Banco setId(UUID id) {
+        this.id = id;
+        return this;
+    }
+
+    public Banco setStatus(boolean status) {
+        this.status = status;
+        return this;
+    }
+
     public LocalDateTime getDataCriacao() {
         return this.dataCriacao;
     }
 
     public LocalDateTime getDataEdicao() {
         return this.dataEdicao;
+    }
+
+    public Banco setDataEdicao(LocalDateTime dataEdicao) {
+        this.dataEdicao = dataEdicao;
+        return this;
     }
 
     public List<Conta> getContas() {

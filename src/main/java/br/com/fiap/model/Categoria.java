@@ -28,6 +28,11 @@ public class Categoria {
         return id;
     }
 
+    public Categoria setId(UUID id) {
+        this.id = id;
+        return this;
+    }
+
     public String getNome() {
         return this.nome;
     }
@@ -54,6 +59,11 @@ public class Categoria {
 
     public LocalDateTime getDataEdicao() {
         return this.dataEdicao;
+    }
+
+    public Categoria setDataEdicao(LocalDateTime dataEdicao) {
+        this.dataEdicao = dataEdicao;
+        return this;
     }
 }
 

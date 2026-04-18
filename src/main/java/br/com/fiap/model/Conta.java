@@ -60,6 +60,16 @@ public class Conta {
         this.status = false;
     }
 
+    public Conta setId(UUID id) {
+        this.id = id;
+        return this;
+    }
+
+    public Conta setStatus(boolean status) {
+        this.status = status;
+        return this;
+    }
+
     public List<Transacao> getTransacoes() {
         return this.transacoes;
     }
@@ -89,6 +99,11 @@ public class Conta {
 
     public LocalDateTime getDataEdicao() {
         return this.dataEdicao;
+    }
+
+    public Conta setDataEdicao(LocalDateTime dataEdicao) {
+        this.dataEdicao = dataEdicao;
+        return this;
     }
 }
 
