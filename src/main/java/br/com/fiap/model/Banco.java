@@ -82,6 +82,10 @@ public class Banco{
         return this.dataEdicao;
     }
 
+    public Banco setDataEdicao (LocalDateTime dataEdicao) {
+        this.dataEdicao = dataEdicao;
+        return this;
+    }
 
     public List<Conta> getContas() {
         return this.contas;
