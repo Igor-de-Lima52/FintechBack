@@ -64,11 +64,13 @@ public class Banco{
 
     public Banco setId(UUID id) {
         this.id = id;
+        this.dataEdicao = LocalDateTime.now();
         return this;
     }
 
     public Banco setStatus(boolean status) {
         this.status = status;
+        this.dataEdicao = LocalDateTime.now();
         return this;
     }
 
@@ -80,10 +82,6 @@ public class Banco{
         return this.dataEdicao;
     }
 
-    public Banco setDataEdicao(LocalDateTime dataEdicao) {
-        this.dataEdicao = dataEdicao;
-        return this;
-    }
 
     public List<Conta> getContas() {
         return this.contas;
@@ -93,8 +91,9 @@ public class Banco{
         if(!contas.contains(conta)) {
             this.contas.add(conta);
         }
+        this.dataEdicao = LocalDateTime.now();
         return this.contas;
-    }
+}
 
     public List<Conta> deletarConta(Conta conta) {
         if(contas.contains(conta)) {
