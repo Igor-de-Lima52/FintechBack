@@ -33,7 +33,6 @@ public class App {
             usuario1.setSenha("password123");
             usuario1.setSexo("M");
             usuario1.setDataNascimento(LocalDateTime.of(1990, 5, 15, 0, 0));
-            System.out.println("Teste");
             usuarioDAO.insert(usuario1);
             System.out.println("Usuario 1 cadastrado com sucesso!");
 
@@ -85,7 +84,7 @@ public class App {
 
             usuarioDAO.closeConnection();
             /*Banco*/
-/*
+
             BancoDAO bancoDAO = new BancoDAO();
 
             Banco banco1 = new Banco();
@@ -131,10 +130,9 @@ public class App {
 
             bancoDAO.closeConnection();
 
-*/
-            /*Conta*/
 
-            /*System.out.println("\n=== CONTAS ===");
+
+            System.out.println("\n=== CONTAS ===");
             ContaDAO contaDAO = new ContaDAO();
 
             Conta conta1 = new Conta();
@@ -179,9 +177,9 @@ public class App {
             }
 
             contaDAO.closeConnection();
-*/
-            /*Categorias*/
-/*
+
+
+
             System.out.println("\n=== CATEGORIAS ===");
             CategoriaDAO categoriaDAO = new CategoriaDAO();
 
@@ -227,11 +225,11 @@ public class App {
             }
 
             categoriaDAO.closeConnection();
-*/
 
-            /*Trnsacao*/
 
-/*
+
+
+
             System.out.println("\n=== TRANSACOES ===");
             TransacaoDAO transacaoDAO = new TransacaoDAO();
 
@@ -241,6 +239,8 @@ public class App {
             transacao1.setDescricao("Salário mensal");
             transacao1.setValor(5000.00);
             transacao1.setCategoria(cat1);
+            transacao1.setUsuarioId(usuario1.getId());
+            transacao1.setContaId(conta1.getId());
             transacaoDAO.insert(transacao1);
             System.out.println("Transacao 1 cadastrada com sucesso!");
 
@@ -250,6 +250,8 @@ public class App {
             transacao2.setDescricao("Compras da semana");
             transacao2.setValor(350.50);
             transacao2.setCategoria(cat2);
+            transacao2.setUsuarioId(usuario2.getId());
+            transacao2.setContaId(conta2.getId());
             transacaoDAO.insert(transacao2);
             System.out.println("Transacao 2 cadastrada com sucesso!");
 
@@ -259,6 +261,8 @@ public class App {
             transacao3.setDescricao("Transporte semanal");
             transacao3.setValor(120.00);
             transacao3.setCategoria(cat3);
+            transacao3.setUsuarioId(usuario3.getId());
+            transacao3.setContaId(conta3.getId());
             transacaoDAO.insert(transacao3);
             System.out.println("Transacao 3 cadastrada com sucesso!");
 
@@ -268,6 +272,8 @@ public class App {
             transacao4.setDescricao("Projeto extra");
             transacao4.setValor(1500.00);
             transacao4.setCategoria(cat4);
+            transacao4.setUsuarioId(usuario4.getId());
+            transacao4.setContaId(conta4.getId());
             transacaoDAO.insert(transacao4);
             System.out.println("Transacao 4 cadastrada com sucesso!");
 
@@ -277,6 +283,8 @@ public class App {
             transacao5.setDescricao("Filme e pipoca");
             transacao5.setValor(80.00);
             transacao5.setCategoria(cat5);
+            transacao5.setUsuarioId(usuario5.getId());
+            transacao5.setContaId(conta5.getId());
             transacaoDAO.insert(transacao5);
             System.out.println("Transacao 5 cadastrada com sucesso!");
 
@@ -287,9 +295,7 @@ public class App {
             }
 
             transacaoDAO.closeConnection();
-*/
-            /*Investimentos*/
-/*
+
             System.out.println("\n=== INVESTIMENTOS ===");
             InvestimentoDAO investimentoDAO = new InvestimentoDAO();
 
@@ -299,6 +305,8 @@ public class App {
             investimento1.setDescricao("Investimento de longo prazo");
             investimento1.setValor(1000.00);
             investimento1.setCategoria(cat4);
+            investimento1.setUsuarioId(usuario1.getId());
+            investimento1.setContaId(conta1.getId());
             investimentoDAO.insert(investimento1);
             System.out.println("Investimento 1 cadastrado com sucesso!");
 
@@ -308,6 +316,8 @@ public class App {
             investimento2.setDescricao("Renda fixa");
             investimento2.setValor(5000.00);
             investimento2.setCategoria(cat4);
+            investimento2.setUsuarioId(usuario2.getId());
+            investimento2.setContaId(conta2.getId());
             investimentoDAO.insert(investimento2);
             System.out.println("Investimento 2 cadastrado com sucesso!");
 
@@ -317,6 +327,8 @@ public class App {
             investimento3.setDescricao("Renda variável");
             investimento3.setValor(2000.00);
             investimento3.setCategoria(cat4);
+            investimento3.setUsuarioId(usuario3.getId());
+            investimento3.setContaId(conta3.getId());
             investimentoDAO.insert(investimento3);
             System.out.println("Investimento 3 cadastrado com sucesso!");
 
@@ -326,6 +338,8 @@ public class App {
             investimento4.setDescricao("Investimento em imóveis");
             investimento4.setValor(3000.00);
             investimento4.setCategoria(cat4);
+            investimento4.setUsuarioId(usuario4.getId());
+            investimento4.setContaId(conta4.getId());
             investimentoDAO.insert(investimento4);
             System.out.println("Investimento 4 cadastrado com sucesso!");
 
@@ -335,6 +349,8 @@ public class App {
             investimento5.setDescricao("Reserva de emergência");
             investimento5.setValor(1500.00);
             investimento5.setCategoria(cat4);
+            investimento5.setUsuarioId(usuario5.getId());
+            investimento5.setContaId(conta5.getId());
             investimentoDAO.insert(investimento5);
             System.out.println("Investimento 5 cadastrado com sucesso!");
 
@@ -345,7 +361,7 @@ public class App {
             }
 
             investimentoDAO.closeConnection();
-*/
+
         } catch (SQLException e) {
             System.err.println("Erro no banco de dados: " + e.getMessage());
         }
