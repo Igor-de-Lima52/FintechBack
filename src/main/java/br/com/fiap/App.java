@@ -22,97 +22,7 @@ public class App {
     public static void main(String[] args) {
 
         try {
-            BancoDAO bancoDAO = new BancoDAO();
-
-            Banco banco1 = new Banco();
-            banco1.setId(UUID.randomUUID());
-            banco1.setNome("Banco do Brasil");
-            banco1.setStatus(true);
-            bancoDAO.insert(banco1);
-            System.out.println("Banco 1 cadastrado com sucesso!");
-
-            Banco banco2 = new Banco();
-            banco2.setId(UUID.randomUUID());
-            banco2.setNome("Itaú");
-            banco2.setStatus(true);
-            bancoDAO.insert(banco2);
-            System.out.println("Banco 2 cadastrado com sucesso!");
-
-            Banco banco3 = new Banco();
-            banco3.setId(UUID.randomUUID());
-            banco3.setNome("Bradesco");
-            banco3.setStatus(true);
-            bancoDAO.insert(banco3);
-            System.out.println("Banco 3 cadastrado com sucesso!");
-
-            Banco banco4 = new Banco();
-            banco4.setId(UUID.randomUUID());
-            banco4.setNome("Nubank");
-            banco4.setStatus(true);
-            bancoDAO.insert(banco4);
-            System.out.println("Banco 4 cadastrado com sucesso!");
-
-            Banco banco5 = new Banco();
-            banco5.setId(UUID.randomUUID());
-            banco5.setNome("Caixa Econômica");
-            banco5.setStatus(true);
-            bancoDAO.insert(banco5);
-            System.out.println("Banco 5 cadastrado com sucesso!");
-
-            System.out.println("\n--- Lista de bancos ---");
-            List<Banco> lista = bancoDAO.getAll();
-            for (Banco b : lista) {
-                System.out.println("Nome: " + b.getNome());
-            }
-
-            bancoDAO.closeConnection();
-
-            System.out.println("\n=== CATEGORIAS ===");
-            CategoriaDAO categoriaDAO = new CategoriaDAO();
-
-            Categoria cat1 = new Categoria();
-            cat1.setId(UUID.randomUUID());
-            cat1.setNome("Salário");
-            cat1.setTipo("Receita");
-            categoriaDAO.insert(cat1);
-            System.out.println("Categoria 1 cadastrada com sucesso!");
-
-            Categoria cat2 = new Categoria();
-            cat2.setId(UUID.randomUUID());
-            cat2.setNome("Alimentação");
-            cat2.setTipo("Despesa");
-            categoriaDAO.insert(cat2);
-            System.out.println("Categoria 2 cadastrada com sucesso!");
-
-            Categoria cat3 = new Categoria();
-            cat3.setId(UUID.randomUUID());
-            cat3.setNome("Transporte");
-            cat3.setTipo("Despesa");
-            categoriaDAO.insert(cat3);
-            System.out.println("Categoria 3 cadastrada com sucesso!");
-
-            Categoria cat4 = new Categoria();
-            cat4.setId(UUID.randomUUID());
-            cat4.setNome("Renda Extra");
-            cat4.setTipo("Receita");
-            categoriaDAO.insert(cat4);
-            System.out.println("Categoria 4 cadastrada com sucesso!");
-
-            Categoria cat5 = new Categoria();
-            cat5.setId(UUID.randomUUID());
-            cat5.setNome("Lazer");
-            cat5.setTipo("Despesa");
-            categoriaDAO.insert(cat5);
-            System.out.println("Categoria 5 cadastrada com sucesso!");
-
-            System.out.println("\n--- Lista de categorias ---");
-            List<Categoria> listaCat = categoriaDAO.getAll();
-            for (Categoria c : listaCat) {
-                System.out.println("Nome: " + c.getNome() + " | Tipo: " + c.getTipo());
-            }
-
-            categoriaDAO.closeConnection();
-
+            /*Usuario*/
             System.out.println("\n=== USUARIOS ===");
             UsuarioDAO usuarioDAO = new UsuarioDAO();
 
@@ -169,6 +79,55 @@ public class App {
 
             usuarioDAO.closeConnection();
 
+            /*Banco*/
+
+            BancoDAO bancoDAO = new BancoDAO();
+
+            Banco banco1 = new Banco();
+            banco1.setId(UUID.randomUUID());
+            banco1.setNome("Banco do Brasil");
+            banco1.setStatus(true);
+            bancoDAO.insert(banco1);
+            System.out.println("Banco 1 cadastrado com sucesso!");
+
+            Banco banco2 = new Banco();
+            banco2.setId(UUID.randomUUID());
+            banco2.setNome("Itaú");
+            banco2.setStatus(true);
+            bancoDAO.insert(banco2);
+            System.out.println("Banco 2 cadastrado com sucesso!");
+
+            Banco banco3 = new Banco();
+            banco3.setId(UUID.randomUUID());
+            banco3.setNome("Bradesco");
+            banco3.setStatus(true);
+            bancoDAO.insert(banco3);
+            System.out.println("Banco 3 cadastrado com sucesso!");
+
+            Banco banco4 = new Banco();
+            banco4.setId(UUID.randomUUID());
+            banco4.setNome("Nubank");
+            banco4.setStatus(true);
+            bancoDAO.insert(banco4);
+            System.out.println("Banco 4 cadastrado com sucesso!");
+
+            Banco banco5 = new Banco();
+            banco5.setId(UUID.randomUUID());
+            banco5.setNome("Caixa Econômica");
+            banco5.setStatus(true);
+            bancoDAO.insert(banco5);
+            System.out.println("Banco 5 cadastrado com sucesso!");
+
+            System.out.println("\n--- Lista de bancos ---");
+            List<Banco> lista = bancoDAO.getAll();
+            for (Banco b : lista) {
+                System.out.println("Nome: " + b.getNome());
+            }
+
+            bancoDAO.closeConnection();
+
+            /*Conta*/
+
             System.out.println("\n=== CONTAS ===");
             ContaDAO contaDAO = new ContaDAO();
 
@@ -214,6 +173,58 @@ public class App {
             }
 
             contaDAO.closeConnection();
+
+            /*Categorias*/
+
+            System.out.println("\n=== CATEGORIAS ===");
+            CategoriaDAO categoriaDAO = new CategoriaDAO();
+
+            Categoria cat1 = new Categoria();
+            cat1.setId(UUID.randomUUID());
+            cat1.setNome("Salário");
+            cat1.setTipo("Receita");
+            categoriaDAO.insert(cat1);
+            System.out.println("Categoria 1 cadastrada com sucesso!");
+
+            Categoria cat2 = new Categoria();
+            cat2.setId(UUID.randomUUID());
+            cat2.setNome("Alimentação");
+            cat2.setTipo("Despesa");
+            categoriaDAO.insert(cat2);
+            System.out.println("Categoria 2 cadastrada com sucesso!");
+
+            Categoria cat3 = new Categoria();
+            cat3.setId(UUID.randomUUID());
+            cat3.setNome("Transporte");
+            cat3.setTipo("Despesa");
+            categoriaDAO.insert(cat3);
+            System.out.println("Categoria 3 cadastrada com sucesso!");
+
+            Categoria cat4 = new Categoria();
+            cat4.setId(UUID.randomUUID());
+            cat4.setNome("Renda Extra");
+            cat4.setTipo("Receita");
+            categoriaDAO.insert(cat4);
+            System.out.println("Categoria 4 cadastrada com sucesso!");
+
+            Categoria cat5 = new Categoria();
+            cat5.setId(UUID.randomUUID());
+            cat5.setNome("Lazer");
+            cat5.setTipo("Despesa");
+            categoriaDAO.insert(cat5);
+            System.out.println("Categoria 5 cadastrada com sucesso!");
+
+            System.out.println("\n--- Lista de categorias ---");
+            List<Categoria> listaCat = categoriaDAO.getAll();
+            for (Categoria c : listaCat) {
+                System.out.println("Nome: " + c.getNome() + " | Tipo: " + c.getTipo());
+            }
+
+            categoriaDAO.closeConnection();
+
+
+            /*Trnsacao*/
+
 
             System.out.println("\n=== TRANSACOES ===");
             TransacaoDAO transacaoDAO = new TransacaoDAO();
@@ -270,6 +281,8 @@ public class App {
             }
 
             transacaoDAO.closeConnection();
+
+            /*Investimentos*/
 
             System.out.println("\n=== INVESTIMENTOS ===");
             InvestimentoDAO investimentoDAO = new InvestimentoDAO();
