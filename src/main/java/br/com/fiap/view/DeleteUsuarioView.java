@@ -5,6 +5,7 @@ import br.com.fiap.model.Usuario;
 import br.com.fiap.model.Login;
 import br.com.fiap.exception.EntityNotFoundException;
 import java.sql.SQLException;
+import java.time.LocalDateTime;
 
 public class DeleteUsuarioView {
     public static void main(String[] args) {
@@ -16,7 +17,7 @@ public class DeleteUsuarioView {
             UsuarioDAO dao = new UsuarioDAO();
             
             Login login = new Login("testeuser", "senha123");
-            Usuario usuario = new Usuario("João Silva", cpf, email, "senha123", login, "M");
+            Usuario usuario = new Usuario("João Silva", cpf, email, "senha123", login, "M", LocalDateTime.of(1990, 5, 15, 0, 0));
             dao.insert(usuario);
             
             dao.delete(usuario.getId());

@@ -12,6 +12,7 @@ import br.com.fiap.model.Conta;
 import br.com.fiap.model.Login;
 import br.com.fiap.exception.EntityNotFoundException;
 import java.sql.SQLException;
+import java.time.LocalDateTime;
 import java.util.UUID;
 
 public class SearchTransacaoView {
@@ -28,7 +29,7 @@ public class SearchTransacaoView {
 
             // Create test user
             Login login = new Login("testuser", "senha123");
-            Usuario usuario = new Usuario("Test User", cpf, email, "senha123", login, "M");
+            Usuario usuario = new Usuario("Test User", cpf, email, "senha123", login, "M", LocalDateTime.of(1990, 5, 15, 0, 0));
             UsuarioDAO usuarioDAO = new UsuarioDAO();
             usuarioDAO.insert(usuario);
 

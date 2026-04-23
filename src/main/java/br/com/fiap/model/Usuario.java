@@ -13,13 +13,14 @@ public class Usuario {
     private String senha;
     private Login login;
     private String sexo;
+    private LocalDateTime dataNascimento;
     private LocalDateTime dataCriacao;
     private LocalDateTime dataEdicao;
 
     private List<Conta> contas = new ArrayList<>();
     private List<Banco> bancos = new ArrayList<>();
 
-    public Usuario(String nome, String cpf, String email, String senha, Login login, String sexo) {
+    public Usuario(String nome, String cpf, String email, String senha, Login login, String sexo, LocalDateTime dataNascimento) {
         this.id = UUID.randomUUID();
         this.nome = nome;
         this.cpf = cpf;
@@ -27,6 +28,7 @@ public class Usuario {
         this.senha = senha;
         this.login = login;
         this.sexo = sexo;
+        this.dataNascimento = dataNascimento;
         this.dataCriacao = LocalDateTime.now();
         this.dataEdicao = LocalDateTime.now();
     }
@@ -97,6 +99,16 @@ public class Usuario {
         } else {
             System.out.println("Erro: A senha digitada não tem o mínimo de caracteres.");
         }
+        return this;
+    }
+
+    public LocalDateTime getDataNascimento () {
+        return this.dataNascimento;
+    }
+
+    public Usuario setDataNascimento (LocalDateTime dataNascimento) {
+        this.dataNascimento = dataNascimento;
+        this.dataEdicao = LocalDateTime.now();
         return this;
     }
 

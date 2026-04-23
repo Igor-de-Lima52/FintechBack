@@ -30,7 +30,7 @@ public class UsuarioDAO {
         stm.setString(4, usuario.getEmail());
         stm.setString(5, usuario.getSenha());
         stm.setString(6, usuario.getSexo());
-        stm.setDate(7, Date.valueOf(LocalDate.now()));
+        stm.setTimestamp(7, java.sql.Timestamp.valueOf(usuario.getDataNascimento()));
         stm.setTimestamp(8, java.sql.Timestamp.valueOf(usuario.getDataCriacao()));
         stm.setTimestamp(9, java.sql.Timestamp.valueOf(usuario.getDataEdicao()));
         stm.executeUpdate();

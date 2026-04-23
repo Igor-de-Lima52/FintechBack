@@ -32,6 +32,8 @@ public class App {
             usuario1.setEmail("joao@email.com");
             usuario1.setSenha("password123");
             usuario1.setSexo("M");
+            usuario1.setDataNascimento(LocalDateTime.of(1990, 5, 15, 0, 0));
+            System.out.println("Teste");
             usuarioDAO.insert(usuario1);
             System.out.println("Usuario 1 cadastrado com sucesso!");
 
@@ -41,6 +43,7 @@ public class App {
             usuario2.setEmail("maria@email.com");
             usuario2.setSenha("password123");
             usuario2.setSexo("F");
+            usuario2.setDataNascimento(LocalDateTime.of(1985, 8, 22, 0, 0));
             usuarioDAO.insert(usuario2);
             System.out.println("Usuario 2 cadastrado com sucesso!");
 
@@ -50,6 +53,7 @@ public class App {
             usuario3.setEmail("pedro@email.com");
             usuario3.setSenha("password123");
             usuario3.setSexo("M");
+            usuario3.setDataNascimento(LocalDateTime.of(1992, 3, 10, 0, 0));
             usuarioDAO.insert(usuario3);
             System.out.println("Usuario 3 cadastrado com sucesso!");
 
@@ -59,6 +63,7 @@ public class App {
             usuario4.setEmail("ana@email.com");
             usuario4.setSenha("password123");
             usuario4.setSexo("F");
+            usuario4.setDataNascimento(LocalDateTime.of(1988, 11, 30, 0, 0));
             usuarioDAO.insert(usuario4);
             System.out.println("Usuario 4 cadastrado com sucesso!");
 
@@ -68,6 +73,7 @@ public class App {
             usuario5.setEmail("carlos@email.com");
             usuario5.setSenha("password123");
             usuario5.setSexo("M");
+            usuario5.setDataNascimento(LocalDateTime.of(1995, 7, 8, 0, 0));
             usuarioDAO.insert(usuario5);
             System.out.println("Usuario 5 cadastrado com sucesso!");
 
@@ -78,9 +84,8 @@ public class App {
             }
 
             usuarioDAO.closeConnection();
-
             /*Banco*/
-
+/*
             BancoDAO bancoDAO = new BancoDAO();
 
             Banco banco1 = new Banco();
@@ -126,9 +131,10 @@ public class App {
 
             bancoDAO.closeConnection();
 
+*/
             /*Conta*/
 
-            System.out.println("\n=== CONTAS ===");
+            /*System.out.println("\n=== CONTAS ===");
             ContaDAO contaDAO = new ContaDAO();
 
             Conta conta1 = new Conta();
@@ -173,9 +179,9 @@ public class App {
             }
 
             contaDAO.closeConnection();
-
+*/
             /*Categorias*/
-
+/*
             System.out.println("\n=== CATEGORIAS ===");
             CategoriaDAO categoriaDAO = new CategoriaDAO();
 
@@ -221,11 +227,11 @@ public class App {
             }
 
             categoriaDAO.closeConnection();
-
+*/
 
             /*Trnsacao*/
 
-
+/*
             System.out.println("\n=== TRANSACOES ===");
             TransacaoDAO transacaoDAO = new TransacaoDAO();
 
@@ -281,9 +287,9 @@ public class App {
             }
 
             transacaoDAO.closeConnection();
-
+*/
             /*Investimentos*/
-
+/*
             System.out.println("\n=== INVESTIMENTOS ===");
             InvestimentoDAO investimentoDAO = new InvestimentoDAO();
 
@@ -339,7 +345,7 @@ public class App {
             }
 
             investimentoDAO.closeConnection();
-
+*/
         } catch (SQLException e) {
             System.err.println("Erro no banco de dados: " + e.getMessage());
         }
