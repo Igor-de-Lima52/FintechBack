@@ -130,8 +130,6 @@ public class App {
 
             bancoDAO.closeConnection();
 
-
-
             System.out.println("\n=== CONTAS ===");
             ContaDAO contaDAO = new ContaDAO();
 
