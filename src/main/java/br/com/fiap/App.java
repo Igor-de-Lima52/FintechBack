@@ -84,7 +84,7 @@ public class App {
 
             usuarioDAO.closeConnection();
             /*Banco*/
-
+            System.out.println("\n=== BANCOS ===");
             BancoDAO bancoDAO = new BancoDAO();
 
             Banco banco1 = new Banco();
@@ -299,7 +299,7 @@ public class App {
 
             Investimento investimento1 = new Investimento();
             investimento1.setId(UUID.randomUUID());
-            investimento1.setNome("TESouro Direto");
+            investimento1.setNome("Tesouro Direto");
             investimento1.setDescricao("Investimento de longo prazo");
             investimento1.setValor(1000.00);
             investimento1.setCategoria(cat4);
