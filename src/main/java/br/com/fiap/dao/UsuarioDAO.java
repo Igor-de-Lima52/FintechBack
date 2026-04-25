@@ -90,6 +90,7 @@ public class UsuarioDAO {
 
     private Usuario mapResultSetToUsuario(ResultSet result) throws SQLException {
         Usuario usuario = new Usuario();
+        usuario.setId(UUID.fromString(result.getString("id")));
         usuario.setNome(result.getString("nome"));
         usuario.setCpf(result.getString("cpf"));
         usuario.setEmail(result.getString("email"));

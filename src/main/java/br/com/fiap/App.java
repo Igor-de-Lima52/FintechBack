@@ -21,9 +21,11 @@ import java.util.UUID;
 public class App {
     public static void main(String[] args) {
 
-        try {
+        //try {
+            System.out.println("Vá até a pasta test e teste os códigos!");
+        //}
             /*Usuario*/
-            System.out.println("\n=== USUARIOS ===");
+            /*System.out.println("\n=== USUARIOS ===");
             UsuarioDAO usuarioDAO = new UsuarioDAO();
 
             Usuario usuario1 = new Usuario();
@@ -82,9 +84,9 @@ public class App {
                 System.out.println("Nome: " + u.getNome() + " | Email: " + u.getEmail());
             }
 
-            usuarioDAO.closeConnection();
+            usuarioDAO.closeConnection();*/
             /*Banco*/
-            System.out.println("\n=== BANCOS ===");
+            /*System.out.println("\n=== BANCOS ===");
             BancoDAO bancoDAO = new BancoDAO();
 
             Banco banco1 = new Banco();
@@ -174,11 +176,11 @@ public class App {
                 System.out.println("Nome: " + c.getNome() + " | Status: " + (c.getStatus() ? "Ativa" : "Inativa"));
             }
 
-            contaDAO.closeConnection();
+            contaDAO.closeConnection();*/
 
 
 
-            System.out.println("\n=== CATEGORIAS ===");
+            /*System.out.println("\n=== CATEGORIAS ===");
             CategoriaDAO categoriaDAO = new CategoriaDAO();
 
             Categoria cat1 = new Categoria();
@@ -222,13 +224,9 @@ public class App {
                 System.out.println("Nome: " + c.getNome() + " | Tipo: " + c.getTipo());
             }
 
-            categoriaDAO.closeConnection();
+            categoriaDAO.closeConnection();*/
 
-
-
-
-
-            System.out.println("\n=== TRANSACOES ===");
+            /*System.out.println("\n=== TRANSACOES ===");
             TransacaoDAO transacaoDAO = new TransacaoDAO();
 
             Transacao transacao1 = new Transacao();
@@ -292,9 +290,9 @@ public class App {
                 System.out.println("Nome: " + t.getNome() + " | Valor: R$" + t.getValor());
             }
 
-            transacaoDAO.closeConnection();
+            transacaoDAO.closeConnection();*/
 
-            System.out.println("\n=== INVESTIMENTOS ===");
+            /*System.out.println("\n=== INVESTIMENTOS ===");
             InvestimentoDAO investimentoDAO = new InvestimentoDAO();
 
             Investimento investimento1 = new Investimento();
@@ -362,6 +360,6 @@ public class App {
 
         } catch (SQLException e) {
             System.err.println("Erro no banco de dados: " + e.getMessage());
-        }
+        }*/
     }
 }

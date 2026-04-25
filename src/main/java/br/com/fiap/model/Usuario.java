@@ -43,6 +43,11 @@ public class Usuario {
         return this.id;
     }
 
+    public Usuario setId(UUID id) {
+        this.id = id;
+        return this;
+    }
+
     public String getNome() {
         return this.nome;
     }
