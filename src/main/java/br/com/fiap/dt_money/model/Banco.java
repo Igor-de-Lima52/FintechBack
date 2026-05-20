@@ -1,28 +1,48 @@
 package br.com.fiap.dt_money.model;
 
+import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
+
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
+@Entity
+@Getter
+@Setter
+@Table(name = "t_fin_banco")
+
 public class Banco{
+    @Id
+    @GeneratedValue(
+            strategy = GenerationType.UUID
+    )
     private UUID id;
+
+    @Column(length = 100, nullable = false)
     private String nome;
+
+    @Column(nullable = false)
     private Usuario usuario;
+
     private boolean status;
+
+    @Column(name = "data_criacao")
+    @CreationTimestamp
     private LocalDateTime dataCriacao;
+
+    @Column(name = "data_edicao")
+    @UpdateTimestamp
     private LocalDateTime dataEdicao;
 
     private List<Conta> contas = new ArrayList<>();
 
-    public Banco() {
-        this.id = UUID.randomUUID();
-        this.dataCriacao = LocalDateTime.now();
-        this.dataEdicao = LocalDateTime.now();
-    }
 
     public Banco(String nome, Usuario usuario) {
-        this.id = UUID.randomUUID();
         this.nome = nome;
         this.usuario = usuario;
         this.status = true;
@@ -30,65 +50,8 @@ public class Banco{
         this.dataEdicao = LocalDateTime.now();
     }
 
-    public UUID getId() {
-        return this.id;
-    }
-
-    public String getNome() {
-        return this.nome;
-    }
-
-    public Banco setNome(String nome) {
-        this.nome = nome;
-        this.dataEdicao = LocalDateTime.now();
-        return this;
-    }
-
-    public Usuario getUsuario() {
-        return this.usuario;
-    }
-
-    public Banco setUsuario(Usuario usuario) {
-        this.usuario = usuario;
-        this.dataEdicao = LocalDateTime.now();
-        return this;
-    }
-
-    public boolean getStatus() {
-        return this.status;
-    }
-
     public void inativarBanco(){
         this.status = false;
-    }
-
-    public Banco setId(UUID id) {
-        this.id = id;
-        this.dataEdicao = LocalDateTime.now();
-        return this;
-    }
-
-    public Banco setStatus(boolean status) {
-        this.status = status;
-        this.dataEdicao = LocalDateTime.now();
-        return this;
-    }
-
-    public LocalDateTime getDataCriacao() {
-        return this.dataCriacao;
-    }
-
-    public LocalDateTime getDataEdicao() {
-        return this.dataEdicao;
-    }
-
-    public Banco setDataEdicao (LocalDateTime dataEdicao) {
-        this.dataEdicao = dataEdicao;
-        return this;
-    }
-
-    public List<Conta> getContas() {
-        return this.contas;
     }
 
     public List<Conta> adicionarConta(Conta conta) {
