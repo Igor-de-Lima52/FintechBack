@@ -1,48 +1,54 @@
 package br.com.fiap.dt_money.service;
 
+import br.com.fiap.dt_money.dto.BrasilApiBancoDTO;
 import br.com.fiap.dt_money.model.Banco;
-import br.com.fiap.dt_money.model.Conta;
 import br.com.fiap.dt_money.repository.BancoRepository;
-import br.com.fiap.dt_money.repository.ContaRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestClient;
 
-import java.time.LocalDateTime;
 import java.util.List;
-import java.util.UUID;
 
 @Service
 public class BancoService {
 
-    @Autowired
-    private BancoRepository bancoRepository;
-    private ContaRepository contaRepository;
+    private final BancoRepository bancoRepository;
+    private final RestClient restClient;
 
-    public Banco inativarBanco(UUID id){
-        Banco banco = bancoRepository.findById(id).orElseThrow();
-        banco.inativarBanco();
-        return bancoRepository.save(banco);
+    public BancoService(BancoRepository bancoRepository) {
+        this.bancoRepository = bancoRepository;
+        this.restClient = RestClient.create("https://brasilapi.com.br/api");
     }
 
-public Banco adicionarConta(UUID bancoId, UUID contaId) {
+    public void sincronizarBancos() {
+        List<BrasilApiBancoDTO> bancosDaApi = restClient.get()
+                .uri("/banks/v1")
+                .retrieve()
+                .body(new ParameterizedTypeReference<List<BrasilApiBancoDTO>>() {});
 
-        Banco banco = bancoRepository.findById(bancoId).orElseThrow();
+        if (bancosDaApi == null) return;
 
-        Conta conta = contaRepository.findById(contaId).orElseThrow();
+        for (BrasilApiBancoDTO dto : bancosDaApi) {
 
-        banco.adicionarConta(conta);
+            if (dto.fullName() == null || dto.fullName().isBlank()) {
+                continue;
+            }
 
-        return bancoRepository.save(banco);
+            Banco novoBanco = new Banco();
+            novoBanco.setNome(dto.fullName());
+
+            bancoRepository.save(novoBanco);
+        }
+
+
+    }
+    // Agora este método busca no SEU banco de dados, e não mais na Brasil API
+    public Banco buscarBancoPorCodigo(Integer codigo) {
+        // Se o banco não existir, pode retornar null ou lançar uma exceção (ex: EntityNotFoundException)
+        return bancoRepository.findByCodigo(codigo);
     }
 
-    public Banco deletarConta(UUID bancoId, UUID contaId) {
-
-        Banco banco = bancoRepository.findById(bancoId).orElseThrow();
-
-        Conta conta = contaRepository.findById(contaId).orElseThrow();
-
-        banco.deletarConta(conta);
-
-        return bancoRepository.save(banco);
+    public List<Banco> listarTodos() {
+        return null;
     }
 }

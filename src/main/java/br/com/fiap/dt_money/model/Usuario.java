@@ -1,187 +1,93 @@
 package br.com.fiap.dt_money.model;
 
+import jakarta.persistence.*;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.Past;
+import jakarta.validation.constraints.Pattern;
+import lombok.Getter;
+import lombok.Setter;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
+import org.hibernate.validator.constraints.br.CPF;
+
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
+@Entity
+@Getter
+@Setter
+@Table(name = "t_fin_usuario")
 public class Usuario {
+    @Id
+    @GeneratedValue(
+            strategy = GenerationType.UUID
+    )
     private UUID id;
+
+    @Column(length = 100, nullable = false)
     private String nome;
+
+    @CPF(message = "CPF Inválido")
+    @Pattern(regexp = "\\d{11}", message = "CPF deve conter 11 números")
+    @Column(length = 11, nullable = false)
     private String cpf;
+
+    @Email(message = "Email Inválido")
+    @Column(length = 255, nullable = false)
     private String email;
-    private String senha;
-    private Login login;
-    private String sexo;
+
+    @Column(name = "senha_hash", nullable = false, length = 255)
+    private String senhaHash;
+
+    @Enumerated(EnumType.STRING)
+    @Column(length = 20, nullable = false)
+    private Sexo sexo;
+
+    public enum Sexo{MASCULINO, FEMININO, OUTRO}
+
+    @Past(message = "A data de nascimento deve estar no passado")
+    @Column(nullable = false)
     private LocalDateTime dataNascimento;
+
+    @Column(name = "data_criacao")
+    @CreationTimestamp
     private LocalDateTime dataCriacao;
+
+    @Column(name = "data_edicao")
+    @UpdateTimestamp
     private LocalDateTime dataEdicao;
 
-    private List<Conta> contas = new ArrayList<>();
+    @ManyToMany
+    @JoinTable(
+            name = "t_fin_usuario_banco",
+            joinColumns = @JoinColumn(name = "usuario_id"),
+            inverseJoinColumns = @JoinColumn(name = "banco_id")
+    )
     private List<Banco> bancos = new ArrayList<>();
 
-    public Usuario(String nome, String cpf, String email, String senha, Login login, String sexo, LocalDateTime dataNascimento) {
-        this.id = UUID.randomUUID();
+    @Transient
+    private List<Conta> contas = new ArrayList<>();
+
+    public Usuario(String nome, String cpf, String email, String senhaHash, Login login, Sexo sexo, LocalDateTime dataNascimento) {
         this.nome = nome;
         this.cpf = cpf;
         this.email = email;
-        this.senha = senha;
-        this.login = login;
+        this.senhaHash = senhaHash;
         this.sexo = sexo;
         this.dataNascimento = dataNascimento;
-        this.dataCriacao = LocalDateTime.now();
-        this.dataEdicao = LocalDateTime.now();
     }
 
-    public Usuario() {
-        this.id = UUID.randomUUID();
-        this.dataCriacao = LocalDateTime.now();
-        this.dataEdicao = LocalDateTime.now();
-    }
-
-    public UUID getId() {
-        return this.id;
-    }
-
-    public Usuario setId(UUID id) {
-        this.id = id;
-        return this;
-    }
-
-    public String getNome() {
-        return this.nome;
-    }
-
-    public Usuario setNome(String nome) {
-        this.nome = nome;
-        this.dataEdicao = LocalDateTime.now();
-        return this;
-    }
-
-    public String getCpf() {
-        return this.cpf;
-    }
-
-    public Usuario setCpf(String cpf) {
-        if(cpf.length() == 11) {
-            this.dataEdicao = LocalDateTime.now();
-            this.cpf = cpf;
-        } else {
-            System.out.println("Erro: O cpf não tem a quantidade certa de caracteres.");
-        }
-
-        return this;
-    }
-
-    public String getEmail() {
-        return this.email;
-    }
-
-    public Usuario setEmail(String email) {
-        this.email = email;
-        this.dataEdicao = LocalDateTime.now();
-        return this;
-    }
-
-    public String getSexo() {
-        return this.sexo;
-    }
-
-    public Usuario setSexo(String sexo) {
-        this.sexo = sexo;
-        this.dataEdicao = LocalDateTime.now();
-        return this;
-    }
-
-    public String getSenha() {
-        return this.senha;
-    }
-
-    public Usuario setSenha(String senha) {
-        if(senha.length() >= 8) {
-            this.senha = senha;
-            this.dataEdicao = LocalDateTime.now();
-        } else {
-            System.out.println("Erro: A senha digitada não tem o mínimo de caracteres.");
-        }
-        return this;
-    }
-
-    public LocalDateTime getDataNascimento () {
-        return this.dataNascimento;
-    }
-
-    public Usuario setDataNascimento (LocalDateTime dataNascimento) {
-        this.dataNascimento = dataNascimento;
-        this.dataEdicao = LocalDateTime.now();
-        return this;
-    }
-
-    public Login getLogin() {
-        return this.login;
-    }
-
-    public LocalDateTime getDataCriacao() {
-        return this.dataCriacao;
-    }
-
-    public LocalDateTime getDataEdicao() {
-        return this.dataEdicao;
-    }
-
-    public Usuario setDataEdicao(LocalDateTime dataEdicao) {
-        this.dataEdicao = dataEdicao;
-        return this;
-    }
-
-    public List<Conta> getContas() {
-        return this.contas;
-    }
-
-    public List<Conta> adicionarConta(Conta conta) {
+    public void adicionarConta(Conta conta) {
         if (!contas.contains(conta)) {
             contas.add(conta);
         }
-
-        return this.contas;
     }
 
-    public List<Conta> deletarConta(Conta conta) {
-        if(contas.contains(conta)) {
-            this.contas.remove(conta);
-            System.out.println("Remoção da conta realizada com sucesso!");
-        } else {
-            System.out.println("Erro: Essa conta não existe na lista.");
-        }
-        return this.contas;
+    public void deletarConta(Conta conta) {
+        this.contas.remove(conta);
     }
 
-    public List<Banco> getBancos() {
-        return this.bancos;
-    }
 
-    public List<Banco> adicionarBanco(Banco banco) {
-        if (!bancos.contains(banco)) {
-            bancos.add(banco);
-        }
-
-        return this.bancos;
-    }
-
-    public List<Banco> deletarBanco(Banco banco) {
-        if(bancos.contains(banco)) {
-            this.bancos.remove(banco);
-            System.out.println("Remoção do banco realizada com sucesso!");
-        } else {
-            System.out.println("Erro: Esse banco não existe na lista.");
-        }
-        return this.bancos;
-    }
-
-    public void mostrarUsuario() {
-        System.out.println("Usuario: " + nome);
-        System.out.println("Cpf: " + cpf);
-        System.out.println("Email: " + email);
-        System.out.println("Sexo: " + sexo);
-    }
 }
