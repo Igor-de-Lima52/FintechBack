@@ -39,12 +39,10 @@ public class BancoService {
 
             bancoRepository.save(novoBanco);
         }
-
-
     }
-    // Agora este método busca no SEU banco de dados, e não mais na Brasil API
+
+
     public Banco buscarBancoPorCodigo(Integer codigo) {
-        // Se o banco não existir, pode retornar null ou lançar uma exceção (ex: EntityNotFoundException)
         return bancoRepository.findByCodigo(codigo);
     }
 

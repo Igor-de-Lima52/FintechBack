@@ -1,109 +1,77 @@
 package br.com.fiap.dt_money.model;
 
+import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
+
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
+@Entity
+@Getter
+@Setter
+@Table(name = "t_fin_conta")
 public class Conta {
+    @Id
+    @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
+
+    @Column(length = 100, nullable = false)
     private String nome;
-    private Usuario usuario;
+
+    @Column(nullable = false)
     private boolean status = true;
+
+    @CreationTimestamp
+    @Column(name = "data_criacao", updatable = false)
     private LocalDateTime dataCriacao;
+
+    @UpdateTimestamp
+    @Column(name = "data_edicao")
     private LocalDateTime dataEdicao;
 
+    @ManyToOne
+    @JoinColumn(name = "usuario_id", nullable = false)
+    private Usuario usuario;
+
+    @ManyToOne
+    @JoinColumn(name = "banco_id", nullable = false)
+    private Banco banco;
+
+    @Transient
     private List<Transacao> transacoes = new ArrayList<>();
 
-    public Conta() {
-        this.id = UUID.randomUUID();
-        this.dataCriacao = LocalDateTime.now();
-        this.dataEdicao = LocalDateTime.now();
-    }
+    public Conta() {}
 
-    public Conta(String nome) {
-        this.id = UUID.randomUUID();
+    public Conta(String nome, Usuario usuario, Banco banco) {
         this.nome = nome;
-        this.dataCriacao = LocalDateTime.now();
-        this.dataEdicao = LocalDateTime.now();
-    }
-
-    public UUID getId() {
-        return this.id;
-    }
-
-    public String getNome() {
-        return nome;
-    }
-
-    public Conta setNome(String nome) {
-        this.nome = nome;
-        this.dataEdicao = LocalDateTime.now();
-        return this;
-    }
-
-    public Usuario getUsuario() {
-        return this.usuario;
-    }
-
-    public Conta setUsuario(Usuario usuario) {
         this.usuario = usuario;
-        this.dataEdicao = LocalDateTime.now();
-        return this;
-    }
-
-    public boolean getStatus() {
-        return this.status;
+        this.banco = banco;
     }
 
     public void inativarConta(){
         this.status = false;
     }
 
-    public Conta setId(UUID id) {
-        this.id = id;
-        return this;
-    }
-
-    public Conta setStatus(boolean status) {
-        this.status = status;
-        return this;
-    }
-
-    public List<Transacao> getTransacoes() {
-        return this.transacoes;
-    }
-
-    public List<Transacao> adicionarTransacao(Transacao transacao) {
-        if(!transacoes.contains(transacao)) {
+    public void adicionarTransacao(Transacao transacao) {
+        if (!transacoes.contains(transacao)) {
             this.transacoes.add(transacao);
         } else {
             System.out.println("Erro: Essa transacao já está na lista");
         }
-        return this.transacoes;
     }
 
-    public List<Transacao> deletarTransacao(Transacao transacao) {
-        if(transacoes.contains(transacao)) {
+    public void deletarTransacao(Transacao transacao) {
+        if (transacoes.contains(transacao)) {
             this.transacoes.remove(transacao);
             System.out.println("Remoção da transação realizada com sucesso!");
         } else {
             System.out.println("Erro: Essa transação não está na lista");
         }
-        return this.transacoes;
-    }
-
-    public LocalDateTime getDataCriacao() {
-        return this.dataCriacao;
-    }
-
-    public LocalDateTime getDataEdicao() {
-        return this.dataEdicao;
-    }
-
-    public Conta setDataEdicao(LocalDateTime dataEdicao) {
-        this.dataEdicao = dataEdicao;
-        return this;
     }
 }
 

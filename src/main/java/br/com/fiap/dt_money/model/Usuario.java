@@ -67,10 +67,13 @@ public class Usuario {
     )
     private List<Banco> bancos = new ArrayList<>();
 
-    @Transient
+    @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL)
     private List<Conta> contas = new ArrayList<>();
 
-    public Usuario(String nome, String cpf, String email, String senhaHash, Login login, Sexo sexo, LocalDateTime dataNascimento) {
+    public Usuario() {
+    }
+
+    public Usuario(String nome, String cpf, String email, String senhaHash, Sexo sexo, LocalDateTime dataNascimento) {
         this.nome = nome;
         this.cpf = cpf;
         this.email = email;

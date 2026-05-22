@@ -26,7 +26,7 @@ public class Banco{
     @Column(unique = true)
     private Integer codigo;
 
-    @Transient
+    @OneToMany(mappedBy = "banco")
     private List<Conta> contas = new ArrayList<>();
 
     @ManyToMany(mappedBy = "bancos")
