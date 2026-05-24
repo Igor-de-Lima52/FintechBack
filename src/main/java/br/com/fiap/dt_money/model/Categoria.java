@@ -1,17 +1,35 @@
 package br.com.fiap.dt_money.model;
 
+import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
+
 import java.time.LocalDateTime;
 import java.util.UUID;
 
+@Entity
+@Getter
+@Setter
+@Table(name = "t_fin_categoria")
 public class Categoria {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
+
+    @Column(length = 100, nullable = false)
     private String nome;
+
+    @Column(length = 50, nullable = false)
     private String tipo;
+
+    @Column(name = "data_criacao")
     private LocalDateTime dataCriacao;
+
+    @Column(name = "data_edicao")
     private LocalDateTime dataEdicao;
 
     public Categoria(String nome, String tipo) {
-        this.id = UUID.randomUUID();
         this.nome = nome;
         this.tipo = tipo;
         this.dataCriacao = LocalDateTime.now();
@@ -19,51 +37,7 @@ public class Categoria {
     }
 
     public Categoria() {
-        this.id = UUID.randomUUID();
         this.dataCriacao = LocalDateTime.now();
         this.dataEdicao = LocalDateTime.now();
     }
-
-    public UUID getId() {
-        return id;
-    }
-
-    public Categoria setId(UUID id) {
-        this.id = id;
-        return this;
-    }
-
-    public String getNome() {
-        return this.nome;
-    }
-
-    public Categoria setNome(String nome) {
-        this.nome = nome;
-        this.dataEdicao = LocalDateTime.now();
-        return this;
-    }
-
-    public String getTipo() {
-        return tipo;
-    }
-
-    public Categoria setTipo(String tipo) {
-        this.tipo = tipo;
-        this.dataEdicao = LocalDateTime.now();
-        return this;
-    }
-
-    public LocalDateTime getDataCriacao() {
-        return this.dataCriacao;
-    }
-
-    public LocalDateTime getDataEdicao() {
-        return this.dataEdicao;
-    }
-
-    public Categoria setDataEdicao(LocalDateTime dataEdicao) {
-        this.dataEdicao = dataEdicao;
-        return this;
-    }
 }
-
