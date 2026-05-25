@@ -1,40 +1,26 @@
 package br.com.fiap.dt_money.model;
 
+import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
+
 import java.util.UUID;
 
+@Entity
+@Getter
+@Setter
+@Table(name = "t_fin_investimento")
 public class Investimento extends Transacao {
-    private UUID usuarioId;
-    private UUID contaId;
 
-    public Investimento(String nome, String descricao, double valor, Categoria categoria, UUID usuarioId, UUID contaId) {
-        super(nome, descricao, valor, categoria);
-        this.usuarioId = usuarioId;
-        this.contaId = contaId;
-    }
+    @Column(name = "tipo_investimento", length = 100)
+    private String tipoInvestimento;
 
-    public Investimento(String nome, String descricao, double valor, Categoria categoria) {
-        super(nome, descricao, valor, categoria);
+    public Investimento(String nome, String descricao, double valor, Categoria categoria, Usuario usuario, Conta conta, String tipoInvestimento) {
+        super(nome, descricao, valor, categoria, usuario, conta);
+        this.tipoInvestimento = tipoInvestimento;
     }
 
     public Investimento() {
         super();
-    }
-
-    public UUID getUsuarioId() {
-        return usuarioId;
-    }
-
-    public Investimento setUsuarioId(UUID usuarioId) {
-        this.usuarioId = usuarioId;
-        return this;
-    }
-
-    public UUID getContaId() {
-        return contaId;
-    }
-
-    public Investimento setContaId(UUID contaId) {
-        this.contaId = contaId;
-        return this;
     }
 }
