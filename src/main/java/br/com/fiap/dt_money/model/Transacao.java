@@ -1,125 +1,62 @@
 package br.com.fiap.dt_money.model;
 
+import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
+
 import java.time.LocalDateTime;
 import java.util.UUID;
 
+@Entity
+@Getter
+@Setter
+@Table(name = "t_fin_transacao")
 public class Transacao {
-    private UUID id;
-    private String nome;
-    private String descricao;
-    private double valor;
-    private Categoria categoria;
-    private LocalDateTime dataCriacao;
-    private LocalDateTime dataEdicao;
-    private UUID usuarioId;
-    private UUID contaId;
 
-    public Transacao(String nome, String descricao, double valor, Categoria categoria, UUID usuarioId, UUID contaId) {
-        this.id = UUID.randomUUID();
+    @Id
+    @GeneratedValue(strategy = GenerationType.UUID)
+    private UUID id;
+
+    @Column(length = 100, nullable = false)
+    private String nome;
+
+    @Column(length = 255)
+    private String descricao;
+
+    @Column(nullable = false)
+    private double valor;
+
+    @ManyToOne
+    @JoinColumn(name = "categoria_id", nullable = false)
+    private Categoria categoria;
+
+    @ManyToOne
+    @JoinColumn(name = "usuario_id", nullable = false)
+    private Usuario usuario;
+
+    @ManyToOne
+    @JoinColumn(name = "conta_id", nullable = false)
+    private Conta conta;
+
+    @Column(name = "data_criacao")
+    private LocalDateTime dataCriacao;
+
+    @Column(name = "data_edicao")
+    private LocalDateTime dataEdicao;
+
+    public Transacao(String nome, String descricao, double valor, Categoria categoria, Usuario usuario, Conta conta) {
         this.nome = nome;
         this.descricao = descricao;
         this.valor = valor;
         this.categoria = categoria;
-        this.usuarioId = usuarioId;
-        this.contaId = contaId;
+        this.usuario = usuario;
+        this.conta = conta;
         this.dataCriacao = LocalDateTime.now();
         this.dataEdicao = LocalDateTime.now();
-    }
-
-    public Transacao(String nome, String descricao, double valor, Categoria categoria) {
-        this(nome, descricao, valor, categoria, null, null);
     }
 
     public Transacao() {
-        this.id = UUID.randomUUID();
         this.dataCriacao = LocalDateTime.now();
         this.dataEdicao = LocalDateTime.now();
     }
-
-    public void mostrarTransacao() {
-        System.out.println("Nome: " + this.nome);
-        System.out.println("Descrição: " + this.descricao);
-        System.out.println("Valor: " + this.valor);
-    }
-
-    public UUID getId() {
-        return id;
-    }
-
-    public Transacao setId(UUID id) {
-        this.id = id;
-        return this;
-    }
-
-    public String getNome() {
-        return nome;
-    }
-
-    public Transacao setNome(String nome) {
-        this.nome = nome;
-        this.dataEdicao = LocalDateTime.now();
-        return this;
-    }
-
-    public String getDescricao() {
-        return descricao;
-    }
-
-    public Transacao setDescricao(String descricao) {
-        this.descricao = descricao;
-        this.dataEdicao = LocalDateTime.now();
-        return this;
-    }
-
-    public double getValor() {
-        return valor;
-    }
-
-    public Transacao setValor(double valor) {
-        this.valor = valor;
-        this.dataEdicao = LocalDateTime.now();
-        return this;
-    }
-
-    public Categoria getCategoria() {
-        return this.categoria;
-    }
-
-    public Transacao setCategoria(Categoria categoria) {
-        this.categoria = categoria;
-        this.dataEdicao = LocalDateTime.now();
-        return this;
-    }
-
-    public LocalDateTime getDataCriacao() {
-        return this.dataCriacao;
-    }
-
-    public LocalDateTime getDataEdicao() {
-        return this.dataEdicao;
-    }
-
-    public Transacao setDataEdicao(LocalDateTime dataEdicao) {
-        this.dataEdicao = dataEdicao;
-        return this;
-    }
-
-    public UUID getUsuarioId() {
-        return usuarioId;
-    }
-
-    public Transacao setUsuarioId(UUID usuarioId) {
-        this.usuarioId = usuarioId;
-        return this;
-    }
-
-    public UUID getContaId() {
-        return contaId;
-    }
-
-    public Transacao setContaId(UUID contaId) {
-        this.contaId = contaId;
-        return this;
-    }
 }
-
