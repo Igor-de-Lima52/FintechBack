@@ -26,6 +26,11 @@ public class TransacaoController {
         return ResponseEntity.ok(transacaoService.listarTodas());
     }
 
+    @GetMapping("/conta/{contaId}")
+    public ResponseEntity<List<Transacao>> listarPorConta(@PathVariable UUID contaId) {
+        return ResponseEntity.ok(transacaoService.listarPorConta(contaId));
+    }
+
     @GetMapping("/{id}")
     public ResponseEntity<Transacao> buscarPorId(@PathVariable UUID id) {
         return ResponseEntity.ok(transacaoService.buscarPorId(id));

@@ -36,6 +36,10 @@ public class TransacaoService {
         return transacaoRepository.findAll();
     }
 
+    public List<Transacao> listarPorConta(UUID contaId) {
+        return transacaoRepository.findByContaId(contaId);
+    }
+
     public Transacao buscarPorId(UUID id) {
         return transacaoRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Transação não encontrada"));

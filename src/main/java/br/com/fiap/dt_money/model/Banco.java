@@ -21,7 +21,7 @@ public class Banco{
     )
     private UUID id;
 
-    @Column(length = 100, nullable = false)
+    @Column(length = 255, nullable = false)
     private String nome;
 
     @Column(unique = true)
