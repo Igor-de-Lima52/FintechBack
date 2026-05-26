@@ -37,10 +37,17 @@ public class UsuarioController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<String> login(@RequestBody @Valid LoginRequestDTO dto) {
+    public ResponseEntity<Usuario> login(@RequestBody @Valid LoginRequestDTO dto) {
         Usuario usuarioLogado = usuarioService.autenticar(dto);
 
-        return ResponseEntity.ok("Login realizado com sucesso! Bem-vindo(a), " + usuarioLogado.getNome());
+        return ResponseEntity.ok(usuarioLogado);
+
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<Usuario> buscarPorId(@PathVariable UUID id) {
+        Usuario usuario = usuarioService.buscarPorId(id);
+        return ResponseEntity.ok(usuario);
     }
 
     @PostMapping("/{usuarioId}/bancos/{bancoId}")

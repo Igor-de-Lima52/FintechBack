@@ -1,5 +1,6 @@
 package br.com.fiap.dt_money.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -26,9 +27,11 @@ public class Banco{
     @Column(unique = true)
     private Integer codigo;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "banco")
     private List<Conta> contas = new ArrayList<>();
 
+    @JsonIgnore
     @ManyToMany(mappedBy = "bancos")
     private List<Usuario> usuario = new ArrayList<>();
 }

@@ -66,6 +66,11 @@ public class UsuarioService {
         return usuario;
     }
 
+    public Usuario buscarPorId(UUID id) {
+        return usuarioRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Usuário não encontrado"));
+    }
+
     public Usuario adicionarBancoAoUsuario(UUID usuarioId, UUID bancoId) {
         Usuario usuario = usuarioRepository.findById(usuarioId).orElseThrow(() -> new RuntimeException("Usuário não encontrado"));
         Banco banco = bancoRepository.findById(bancoId).orElseThrow(() -> new RuntimeException("Banco não encontrado"));

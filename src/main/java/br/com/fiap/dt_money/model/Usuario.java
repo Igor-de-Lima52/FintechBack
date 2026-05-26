@@ -1,5 +1,6 @@
 package br.com.fiap.dt_money.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.Past;
@@ -38,6 +39,7 @@ public class Usuario {
     @Column(length = 255, nullable = false)
     private String email;
 
+    @JsonIgnore
     @Column(name = "senha_hash", nullable = false, length = 255)
     private String senhaHash;
 
@@ -59,6 +61,7 @@ public class Usuario {
     @UpdateTimestamp
     private LocalDateTime dataEdicao;
 
+    @JsonIgnore
     @ManyToMany
     @JoinTable(
             name = "t_fin_usuario_banco",
@@ -67,6 +70,7 @@ public class Usuario {
     )
     private List<Banco> bancos = new ArrayList<>();
 
+    @JsonIgnore
     @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL)
     private List<Conta> contas = new ArrayList<>();
 

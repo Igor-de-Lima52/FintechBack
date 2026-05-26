@@ -3,13 +3,11 @@ package br.com.fiap.dt_money.model;
 import java.util.UUID;
 
 public class Receita extends Transacao {
-    public Receita(String nome, String descricao, double valor, Categoria categoria, UUID usuarioId, UUID contaId) {
-        super(nome, descricao, valor, categoria, usuarioId, contaId);
+    public Receita(String nome, String descricao, double valor, Categoria categoria, Usuario usuario, Conta conta) {
+        super(nome, descricao, valor, categoria, usuario, conta);
     }
 
-    public Receita(String nome, String descricao, double valor, Categoria categoria) {
-        super(nome, descricao, valor, categoria);
+    public Receita() {
+        super();
     }
-
-    public Receita() { super(); }
 }

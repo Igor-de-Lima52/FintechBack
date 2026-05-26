@@ -30,14 +30,20 @@ public class BancoService {
 
         for (BrasilApiBancoDTO dto : bancosDaApi) {
 
+
             if (dto.fullName() == null || dto.fullName().isBlank()) {
                 continue;
             }
 
             Banco novoBanco = new Banco();
             novoBanco.setNome(dto.fullName());
+            novoBanco.setCodigo(dto.code());
 
-            bancoRepository.save(novoBanco);
+            try {
+                bancoRepository.save(novoBanco);
+            } catch (Exception e) {
+                System.out.println("Banco ignorado (já existente ou erro de validação): " + dto.fullName());
+            }
         }
     }
 
@@ -47,6 +53,6 @@ public class BancoService {
     }
 
     public List<Banco> listarTodos() {
-        return null;
+        return bancoRepository.findAll();
     }
 }

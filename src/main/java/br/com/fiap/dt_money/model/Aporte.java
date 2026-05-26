@@ -3,10 +3,6 @@ package br.com.fiap.dt_money.model;
 public class Aporte extends Despesa {
     private Investimento investimento;
 
-    public Aporte(String nome, String descricao, double valor, Categoria categoria) {
-        super(nome, descricao, valor, categoria);
-    }
-
     public Aporte() {
         super();
     }
